@@ -69,6 +69,8 @@ def graph_theory(dV_max, disp_flag):
     
     for i in range(num_sats):
         semi_major_axis = 7074000 #m
+        # 圆形轨道，此时高度可用使用半长减去地球半径
+        # altitude = 7074000-6371000(Re-地球半径(radian of the earth)
         incl = 40 #deg
         RAAN0 = 0+20*i #deg - this means for multiple satellites, satellites are spaced by 20 deg RAAN
         u0 = 0 #deg
@@ -101,7 +103,7 @@ def graph_theory(dV_max, disp_flag):
     targets = []
     
     dir = os.path.dirname(__file__)
-    file = os.path.join(dir, 'target_tracks\megi_data.xlsx') #(!) path may need to be changed for non-Windows users
+    file = os.path.join(dir, 'target_tracks/megi_data.xlsx') #(!) path may need to be changed for non-Windows users
     #These are locations of the eye of Typhoon Megi (2010)
     target_interval = 2.5*24*3600 #sec
     targets_time,targets_lat,targets_long, time_since_epoch, latitude, longitude = import_hurricane(file, date_epoch, num_targets, target_interval)
@@ -120,7 +122,7 @@ def graph_theory(dV_max, disp_flag):
     #Model Parameters---------------------------------------------------------
     mu = 3.98600*10**14         # standard gravitational parameter, m^3/s^2
     Re = 6371000                # mean Earth radius, m
-    J2 = 1082.7*(10**-6)        # coefficient of the Earth's gravitational zonal harmonic of the 2nd degree
+    J2 = 1082.7*(10**-6)        # 二阶带谐系数 coefficient of the Earth's gravitational zonal harmonic of the 2nd degree
     vel_e = 7.29212*10**(-5)    # angular velocity of the earth, rad/s
     rad = math.pi/180           # conversion of deg to rad
     flattening = 0.00335281     # flattening factor of the earth
